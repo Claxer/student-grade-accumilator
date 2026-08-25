@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Grade Analyzer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">GA</div>
+
+            <div>
+                <h2>GradeAnalyzer</h2>
+                <span>Student Management</span>
+            </div>
+        </div>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">
+                <span>▦</span>
+                Dashboard
+            </a>
+
+            <a href="#students" class="nav-link">
+                <span>♙</span>
+                Students
+            </a>
+
+            <a href="#addStudent" class="nav-link">
+                <span>＋</span>
+                Add Student
+            </a>
+
+            <a href="#reports" class="nav-link">
+                <span>▤</span>
+                Reports
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="system-status">
+                <span class="status-dot"></span>
+                System Online
+            </div>
+
+            <p>Student Grade Management System</p>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">ACADEMIC OVERVIEW</p>
+                <h1>Student Performance Dashboard</h1>
+                <p class="subtitle">
+                    Monitor grades, attendance, academic status, and class performance.
+                </p>
+            </div>
+
+            <button class="primary-btn" id="headerAddBtn">
+                <span>＋</span>
+                Add Student
+            </button>
+
+        </header>
+
+
+        <!-- DASHBOARD -->
+        <section id="dashboard">
+
+            <!-- STAT CARDS -->
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-icon blue">♙</div>
+
+                    <div>
+                        <span>Total Students</span>
+                        <strong id="totalStudents">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon green">✓</div>
+
+                    <div>
+                        <span>Passed Students</span>
+                        <strong id="passedStudents">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon red">!</div>
+
+                    <div>
+                        <span>Failed Students</span>
+                        <strong id="failedStudents">0</strong>
+                    </div>
+                </div>
+
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">★</div>
+
+                    <div>
+                        <span>Class Average</span>
+                        <strong id="classAverage">0.00</strong>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- PERFORMANCE SECTION -->
+            <div class="dashboard-grid">
+
+                <div class="panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <p class="eyebrow">CLASS PERFORMANCE</p>
+                            <h2>Performance Overview</h2>
+                        </div>
+                    </div>
+
+                    <div class="performance-content">
+
+                        <div class="circle-progress" id="passCircle">
+                            <div class="circle-inner">
+                                <strong id="passPercentage">0%</strong>
+                                <span>Pass Rate</span>
+                            </div>
+                        </div>
+
+
+                        <div class="performance-details">
+
+                            <div class="detail-row">
+                                <span>Passed</span>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-fill green-fill"
+                                        id="passedProgress"
+                                    ></div>
+                                </div>
+
+                                <strong id="passedPercentText">0%</strong>
+                            </div>
+
+
+                            <div class="detail-row">
+                                <span>Failed</span>
+
+                                <div class="progress">
+                                    <div
+                                        class="progress-fill red-fill"
+                                        id="failedProgress"
+                                    ></div>
+                                </div>
+
+                                <strong id="failedPercentText">0%</strong>
+                            </div>
+
+
+                            <div class="performance-label">
+                                <span>Overall Class Performance</span>
+                                <strong id="overallPerformance">
+                                    No Data
+                                </strong>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TOP STUDENT -->
+                <div class="panel top-student-panel">
+
+                    <div class="panel-header">
+                        <div>
+                            <p class="eyebrow">TOP PERFORMER</p>
+                            <h2>Highest Average</h2>
+                        </div>
+
+                        <span class="trophy">🏆</span>
+                    </div>
+
+                    <div id="topStudentContainer" class="empty-state">
+                        No student data available.
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- CLASS SUMMARY -->
+            <div class="panel summary-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">CLASS SUMMARY</p>
+                        <h2>Academic Statistics</h2>
+                    </div>
+                </div>
+
+                <div class="summary-grid">
+
+                    <div class="summary-item">
+                        <span>Excellent Students</span>
+                        <strong id="excellentStudents">0</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Highest Average</span>
+                        <strong id="highestAverage">0.00</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Top Student</span>
+                        <strong id="topStudent">—</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Lowest Average</span>
+                        <strong id="lowestAverage">0.00</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Lowest Student</span>
+                        <strong id="lowestStudent">—</strong>
+                    </div>
+
+                    <div class="summary-item">
+                        <span>Failure Rate</span>
+                        <strong id="failurePercentage">0%</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD STUDENT -->
+        <section id="addStudent" class="content-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">STUDENT MANAGEMENT</p>
+                    <h2>Add Student</h2>
+                    <p>Enter the student's grades and attendance information.</p>
+                </div>
+            </div>
+
+
+            <form id="studentForm" class="student-form">
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        <span>01</span>
+                        Student Information
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="studentName">
+                            Student Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="studentName"
+                            placeholder="Enter student name"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-section">
+
+                    <div class="form-section-title">
+                        <span>02</span>
+                        Subject Grades
+                    </div>
+
+                    <div class="grades-grid">
+
+                        <div class="form-group">
+                            <label for="programming">Programming</label>
+
+                            <input
+                                type="number"
+                                id="programming"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="database">Database</label>
+
+                            <input
+                                type="number"
+                                id="database"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="mathematics">Mathematics</label>
+
+                            <input
+                                type="number"
+                                id="mathematics"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="networking">Networking</label>
+
+                            <input
+                                type="number"
+                                id="networking"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="webDevelopment">
+                                Web Development
+                            </label>
+
+                            <input
+                                type="number"
+                                id="webDevelopment"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="attendance">
+                                Attendance %
+                            </label>
+
+                            <input
+                                type="number"
+                                id="attendance"
+                                min="0"
+                                max="100"
+                                step="0.01"
+                                placeholder="0 - 100"
+                                required
+                            >
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-actions">
+
+                    <button
+                        type="reset"
+                        class="secondary-btn"
+                    >
+                        Clear
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="primary-btn"
+                    >
+                        Add Student
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+        <!-- STUDENTS -->
+        <section id="students" class="content-section">
+
+            <div class="section-heading student-heading">
+
+                <div>
+                    <p class="eyebrow">STUDENT RECORDS</p>
+                    <h2>All Students</h2>
+                    <p>View and manage student performance records.</p>
+                </div>
+
+
+                <div class="search-box">
+
+                    <span>⌕</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search students..."
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="students-container">
+
+                <div id="studentCards" class="student-cards">
+
+                    <div class="empty-students">
+                        <div class="empty-icon">♙</div>
+
+                        <h3>No Students Added</h3>
+
+                        <p>
+                            Add a student to start analyzing class performance.
+                        </p>
+
+                        <button
+                            class="primary-btn"
+                            id="emptyAddBtn"
+                        >
+                            Add First Student
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- REPORTS -->
+        <section id="reports" class="content-section">
+
+            <div class="section-heading">
+
+                <div>
+                    <p class="eyebrow">REPORTING</p>
+                    <h2>Performance Reports</h2>
+                    <p>
+                        Analyze individual student subject performance.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div id="reportContainer" class="report-container">
+
+                <div class="empty-state">
+                    Add students to generate performance reports.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer>
+            <p>
+                Student Grade Management & Performance Analyzer
+            </p>
+
+            <span>
+                Built with HTML • CSS • JavaScript
+            </span>
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- STUDENT DETAILS MODAL -->
+<div class="modal-overlay" id="studentModal">
+
+    <div class="modal">
+
+        <button class="modal-close" id="modalClose">
+            ×
+        </button>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
